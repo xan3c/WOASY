@@ -20,4 +20,4 @@ def trait_gen(enc, *args):
   result = enc.transform([traits]).toarray()  
   return result
 
-trait_gen(enc, wealth, criminal, mental_state, origin, parenthood)
+#trait_gen(enc, wealth, criminal, mental_state, origin, parenthood)
