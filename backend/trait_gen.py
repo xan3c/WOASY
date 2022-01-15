@@ -1,23 +1,25 @@
 from sklearn.preprocessing import OneHotEncoder
 import random
 
-wealth = ['rich', 'poor']
-criminal = ['innocent', 'murderer', 'robber']
-mental_state = ['happy', 'depressed']
-origin = ['canadian', 'american', 'immigrant', 'european']
-parenthood = ['parent', 'non-parent']
+def trait_gen():
+  wealth = ['rich', 'poor']
+  criminal = ['innocent', 'murderer', 'robber']
+  mental_state = ['happy', 'depressed']
+  origin = ['canadian', 'american', 'immigrant', 'european']
+  parenthood = ['parent', 'non-parent']
 
-enc = OneHotEncoder(categories=[wealth, criminal, mental_state, origin, parenthood])
+  enc = OneHotEncoder(categories=[wealth, criminal, mental_state, origin, parenthood])
 
-x = [['rich', 'innocent', 'happy', 'canadian', 'parent']]
-enc.fit(x)
+  x = [['rich', 'innocent', 'happy', 'canadian', 'parent']]
+  enc.fit(x)
 
-def trait_gen(enc, *args):
+
+
+  categories = [wealth, criminal, mental_state, origin, parenthood]
   traits = []
-  for i in args:
+  for i in categories:
     traits.append(random.choice(i))
 
   result = enc.transform([traits]).toarray()  
-  return result
 
-#trait_gen(enc, wealth, criminal, mental_state, origin, parenthood)
+  return result, traits, enc
