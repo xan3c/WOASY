@@ -1,9 +1,10 @@
 from sklearn.preprocessing import OneHotEncoder
 import random
+import numpy as np
 
 def trait_gen():
-    wealth = ['rich', 'poor']
-    criminal = ['innocent', 'murderer', 'robber']
+    wealth = ['rich']*2 + ['middle-class']*5 + ['poor']*3
+    criminal = ['innocent']*8 + ['murderer'] + ['robber']
     mental_state = ['happy', 'depressed']
     origin = ['Canadian', 'American', 'immigrant', 'European']
     parenthood = ['parent', 'non-parent']
@@ -16,28 +17,36 @@ def trait_gen():
     categories = [wealth, criminal, mental_state, origin, parenthood]
     traits = []
     for i in categories:
-        traits.append(random.choice(i))
+            traits.append(random.choice(i))
 
-    bio = "Currently, this person is {} and {}.".format(traits[0], traits[2]) 
-    if traits[1] == 'innocent':
-        bio += " They have a clean criminal record"
-    elif traits[1] == "robber":
-        bio += " They have a criminal record of bank robbery"
+    bio = "Currently, this person is {}".format(traits[2])
+
+    if traits[0] == "rich":
+        bio += " and wealthy."
+    elif traits[0] == 'poor':
+        bio += " and living in poverty."
     else:
-        bio += " They have a criminal record of commiting murder"
+        bio += "."
+
+    if traits[1] == "robber":
+        bio += " They have a criminal record of bank robbery."
+    else:
+        bio += " They have a criminal record of commiting murder."
 
     if traits[3] == 'immigrant':
-        bio += ', is an immigrant'
+        bio += ' They are an immigrant'
     else:
-        bio += ", is {}".format(traits[3])
+        bio += " They are {}".format(traits[3])
 
     if traits[4] == 'parent':
-        bio += ", and has kids."
+        bio += " and have kids."
     else:
-        bio += ", and has no kids."
+        bio += " and have no kids."
 
     result = enc.transform([traits]).toarray()  
 
     age = random.randint(18, 65)
 
     return result, traits, bio, age
+
+print(trait_gen())
