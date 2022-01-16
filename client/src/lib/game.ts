@@ -1,4 +1,9 @@
 import * as PIXI from "pixi.js";
+import png from "../../static/favicon.png";
+import png2 from "static/favicon.png";
+import { get_scenario } from "$lib/communication";
+
+const texture = PIXI.Texture.from(png2);
 
 export class Game {
 	app: PIXI.Application;
@@ -9,6 +14,9 @@ export class Game {
 	}
 
 	async start() {
+		let scenario = await get_scenario();
+		console.log(scenario);
+
 		this.app = new PIXI.Application({
 			view: this.canvas,
 			width: 800,
@@ -28,7 +36,25 @@ export class Game {
 
 		this.app.stage.addChild(graphics);
 
+		let sprite = new PIXI.Sprite(texture);
+		this.app.stage.addChild(sprite);
+
 		let tick = 0;
+
+		let svg: SVGAElement;
+
+		// let t = PIXI.Texture.from(svg);
+		// console.log(this.app.renderer.plugins.interaction);
+
+		sprite.interactive = true;
+
+		(sprite as any).mouseover = (mouseData) => {
+			sprite.alpha = 0.5;
+		};
+
+		(sprite as any).mouseout = (mouseData) => {
+			sprite.alpha = 0.5;
+		};
 
 		const animate = (dt: number) => {
 			graphics.x = 400 + 100 * Math.cos(tick / 20);
