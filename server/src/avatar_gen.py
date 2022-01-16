@@ -5,76 +5,70 @@ from sklearn.preprocessing import OneHotEncoder
 
 def avatar_gen():
 
-    style = [name for name in dir(pa.AvatarStyle) if not name.startswith('_')]
-    skin_color = ("tanned" , "yellow" , "pale" , "light" , "brown" , "darkBrown" , "black")
-    hair_color= [name for name in dir(pa.HairColor) if not name.startswith('_')]
-    facial_hair_type= [name for name in dir(pa.FacialHairType) if not name.startswith('_')]
-    facial_hair_color= [name for name in dir(pa.HairColor) if not name.startswith('_')]
-    top_type= [name for name in dir(pa.TopType) if not name.startswith('_')]
-    hat_color= [name for name in dir(pa.Color) if not name.startswith('_')]
-    mouth_type= [name for name in dir(pa.MouthType) if not name.startswith('_')]
-    eye_type= [name for name in dir(pa.EyesType) if not name.startswith('_')]
-    eyebrow_type= [name for name in dir(pa.EyebrowType) if not name.startswith('_')]
-    nose_type= [name for name in dir(pa.NoseType) if not name.startswith('_')]
-    accessories_type= [name for name in dir(pa.AccessoriesType) if not name.startswith('_')]
-    clothe_type= [name for name in dir(pa.ClotheType) if not name.startswith('_')]
-    clothe_color= [name for name in dir(pa.Color) if not name.startswith('_')]
-    clothe_graphic_type= [name for name in dir(pa.ClotheGraphicType) if not name.startswith('_')]
+  style = ["transparent"]
 
-    enc = OneHotEncoder(categories=[style, skin_color, hair_color, facial_hair_type, facial_hair_color,
-                                    top_type, hat_color, mouth_type,
-                                    eye_type, eyebrow_type, nose_type,
-                                    accessories_type, clothe_type,
-                                    clothe_color, clothe_graphic_type])
+  skin = ["tanned", "yellow", "pale", "light", "brown", "darkBrown", "black"]
 
-    enc.fit([['TRANSPARENT', 'LIGHT', 'BROWN', 'DEFAULT', 'BLACK', 'SHORT_HAIR_SHORT_FLAT', 'BLACK', 'SMILE', 'DEFAULT', 'DEFAULT', 'DEFAULT', 'DEFAULT', 'GRAPHIC_SHIRT', 'HEATHER','BAT']])
+  hairColor= ["auburn", "black", "blonde", "blondeGolden", "brown", "brownDark", "pastel", "pastelPink", "platinum", "red", "gray", "silverGray"]
+  
+  facialHair= ["medium", "beardMedium", "light", "beardLight", "majestic", "beardMajestic", "fancy", "moustaceFancy", "magnum", "moustacheMagnum"]
+
+  facialHairColor= ["auburn", "black", "blonde", "blondeGolden", "brown", "brownDark", "pastel", "pastelPink", "platinum", "red", "gray", "silverGray"]
+
+  top = ["longHair", "shortHair", "eyepatch", "hat", "hijab", "turban", "bigHair", "bob", "bun", "curly", "curvy", "dreads", "frida", "fro", "froAndBand", "miaWallace", "longButNotTooLong", "shavedSides", "straight01", "straight02", "straightAndStrand", "dreads01", "dreads02", "frizzle", "shaggy", "shaggyMullet", "shortCurly", "shortFlat", "shortRound", "shortWaved", "sides", "theCaesar", "theCaesarAndSidePart", "winterHat01", "winterHat02", "winterHat03", "winterHat04"]
+
+  hatColor= ["black", "blue", "blue01", "blue02", "blue03", "gray", "gray01", "gray02", "heather", "pastel", "pastelBlue", "pastelGreen", "pastelOrange", "pastelRed", "pastelYellow", "pink", "red", "white"]
+  mouth= ["concerned" , "default" , "disbelief" , "eating" , "grimace" , "sad" , "scream" , "screamOpen" , "serious" , "smile" , "tongue" , "twinkle" , "vomit"]
+
+  eyes = ["close" , "closed" , "cry" , "default" , "dizzy" , "xDizzy" , "roll" , "eyeRoll" , "happy" , "hearts" , "side" , "squint" , "surprised" , "wink" , "winkWacky"]
+  eyebrow = ["angry" , "angryNatural" , "default" , "defaultNatural" , "flat" , "flatNatural" , "raised" , "raisedExcited" , "raisedExcitedNatural" , "sad" , "sadConcerned" , "sadConcernedNatural" , "unibrow" , "unibrowNatural" , "up" , "upDown" , "upDownNatural" , "frown" , "frownNatural"]
+
+  accessories = ["kurt" , "prescription01" , "prescription02" , "round" , "sunglasses" , "wayfarers"]
+
+  accessoriesColor = ["black" , "blue" , "blue01" , "blue02" , "blue03" , "gray" , "gray01" , "gray02" , "heather" , "pastel" , "pastelBlue" , "pastelGreen" , "pastelOrange" , "pastelRed" , "pastelYellow" , "pink" , "red" , "white"]
+
+  clothe = ["blazer" , "blazerAndShirt" , "blazerAndSweater" , "sweater" , "collarAndSweater" , "shirt" , "graphicShirt" , "shirtCrewNeck" , "shirtScoopNeck" , "shirtVNeck" , "hoodie" , "overall"]
+  clothesColor= ["black" , "blue" , "blue01" , "blue02" , "blue03" , "gray" , "gray01" , "gray02" , "heather" , "pastel" , "pastelBlue" , "pastelGreen" , "pastelOrange" , "pastelRed" , "pastelYellow" , "pink" , "red" , "white"]
+  clotheGraphics= ["skullOutline" , "skull" , "resist" , "pizza" , "hola" , "diamond" , "deer" , "cumbia" , "bear" , "bat"]
+
+  facialHairChance = 0.5
+  accessoriesChance = 0.5
+  topChance = 0.5
+  mode = ["include", "exclude"]
+
+  #enc = OneHotEncoder(categories=[style, skin])
+
+  #enc.fit([['TRANSPARENT', 'LIGHT', 'BROWN', 'DEFAULT', 'BLACK', 'SHORT_HAIR_SHORT_FLAT', 'BLACK', 'SMILE', 'DEFAULT', 'DEFAULT', 'DEFAULT', 'DEFAULT', 'GRAPHIC_SHIRT', 'HEATHER','BAT']])
 
 
-    categories=[
-                    style, skin_color, hair_color,
-                    facial_hair_type, facial_hair_color,
-                    top_type, hat_color, mouth_type,
-                    eye_type, eyebrow_type, nose_type,
-                    accessories_type, clothe_type,
-                    clothe_color, clothe_graphic_type
-                ]
+  categories=[
+                                  style, skin, hairColor,
+                                  facialHair, facialHairColor,
+                                  top, hatColor, mouth,
+                                  eyes, eyebrow,
+                                  accessories, accessoriesColor, clothe,
+                                  clothesColor, clotheGraphics, mode
+              ]
+  category_names=[
+                                  'style', 'skin', 'hairColor',
+                                  'facialHair', 'facialHairColor',
+                                  'top', 'hatColor', 'mouth',
+                                  'eyes', 'eyebrow',
+                                  'accessories', 'accessoriesColor', 'clothe',
+                                  'clothesColor', 'clotheGraphics', 'mode'
+              ]
 
-    traits = []
+  traits = []
+  dictionary = {}
 
-    for i in categories:
+  for i in range(len(categories)): 
 
-        if i is not style and i is not eye_type:
-            traits.append(random.choice(i))
+    choices = categories[i]
+    decision = random.choice(choices)
+    traits.append(decision)
+    dictionary.update({category_names[i]:decision})
 
-        elif i is style:
-            traits.append('TRANSPARENT')
 
-        elif i is eye_type:
-            traits.append('DEFAULT')
+  #result = enc.transform([traits]).toarray()  
 
-    result = enc.transform([traits]).toarray()
-
-    return result, traits
-
-def ResultsANDSVG():
-    result_array, result = avatar_gen()
-
-    avatar = PyAvataaar(style = pa.AvatarStyle[result[0]],
-                        skin = pa.SkinColor[result[1]],
-                        hair_color= pa.HairColor[result[2]],
-                        facial_hair_type= pa.FacialHairType[result[3]],
-                        facial_hair_color= pa.HairColor[result[4]],
-                        top_type= pa.TopType[result[5]],
-                        hat_color= pa.Color[result[6]],
-                        mouth_type= pa.MouthType[result[7]],
-                        eye_type= pa.EyesType[result[8]],
-                        eyebrow_type= pa.EyebrowType[result[9]],
-                        nose_type= pa.NoseType[result[10]],
-                        accessories_type= pa.AccessoriesType[result[11]],
-                        clothe_type= pa.ClotheType[result[12]],
-                        clothe_color= pa.Color[result[13]],
-                        clothe_graphic_type= pa.ClotheGraphicType[result[14]],
-
-                        )
-
-    return avatar.render_svg()
+  return traits, dictionary
