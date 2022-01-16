@@ -10,7 +10,7 @@ def trait_gen():
 
     enc = OneHotEncoder(categories=[wealth, criminal, mental_state, origin, parenthood])
 
-    x = [['rich', 'innocent', 'happy', 'canadian', 'non-parent']]
+    x = [['rich', 'innocent', 'happy', 'Canadian', 'non-parent']]
     enc.fit(x)
 
     categories = [wealth, criminal, mental_state, origin, parenthood]
