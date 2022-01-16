@@ -38,13 +38,29 @@ export class NPC extends PIXI.Sprite {
 		this.interactive = true;
 		(this as any).mouseover = (mouseData) => {
 			this.mouseOver = true;
+
+			let lines = character.bio.split(".").join("\n");
+			let text = new PIXI.Text(lines, {
+				fontFamily: "Arial",
+				fontSize: 200,
+				fontWeight: "bold",
+				fill: 0xffffff,
+				align: "center",
+			});
+			text.anchor.set(0.5, 0.5);
+			text.position.set(0, -1000);
+			text.zIndex = 100;
+			this.sortableChildren = true;
+			this.addChild(text);
 		};
 		(this as any).mouseout = (mouseData) => {
 			this.mouseOver = false;
+
+			this.removeChildren();
 		};
 		(this as any).mousedown = (mouseData) => {
 			if (this.checkDistance()) {
-				console.log("saved");
+				this.pickup();
 			}
 		};
 	}
