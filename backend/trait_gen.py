@@ -38,4 +38,6 @@ def trait_gen():
 
     result = enc.transform([traits]).toarray()  
 
-    return result, traits, bio
+    age = random.randint(18, 65)
+
+    return result, traits, bio, age
