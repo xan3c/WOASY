@@ -54,13 +54,13 @@ export class NPC extends PIXI.Sprite {
 			let lines = character.bio.split(".").join("\n");
 			let text = new PIXI.Text(lines, {
 				fontFamily: "Arial",
-				fontSize: 200,
+				fontSize: 30,
 				fontWeight: "bold",
 				fill: 0xffffff,
 				align: "center",
 			});
 			text.anchor.set(0.5, 0.5);
-			text.position.set(0, -1000);
+			text.position.set(0, -100);
 			text.zIndex = 2;
 			this.zIndex = 1;
 
