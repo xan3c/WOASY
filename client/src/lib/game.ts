@@ -14,6 +14,7 @@ export class Game {
 	NPCs: PIXI.Container;
 	isGameOver = false;
 	saved: string[] = [];
+	timer: NodeJS.Timer;
 
 	constructor(canvas: HTMLCanvasElement) {
 		this.canvas = canvas;
@@ -56,11 +57,11 @@ export class Game {
 		capacityRemaining.set(sceneObject.lifeboat.maxCapacity);
 
 		timeRemaining.set(sceneObject.maxTime);
-		let timer = setInterval(() => {
+		this.timer = setInterval(() => {
 			timeRemaining.update((n) => (n -= 1));
 
 			if (get(timeRemaining) <= 0) {
-				clearInterval(timer);
+				clearInterval(this.timer);
 				this.gameOver();
 			}
 		}, 1000);
@@ -90,6 +91,7 @@ export class Game {
 	}
 
 	async gameOver() {
+		clearInterval(this.timer);
 		if (!this.isGameOver) {
 			this.isGameOver = true;
 
