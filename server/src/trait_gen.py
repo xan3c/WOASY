@@ -5,10 +5,9 @@ import numpy as np
 def trait_gen():
     wealth = ['rich']*2 + ['middle-class']*5 + ['poor']*3
     criminal = ['innocent']*8 + ['murderer'] + ['robber']
-    mental_state = ['happy', 'depressed']
+    mental_state = ['happy']*2 + ['depressed']
     origin = ['Canadian', 'American', 'immigrant', 'European']
     parenthood = ['parent', 'non-parent']
-
     enc = OneHotEncoder(categories=[wealth, criminal, mental_state, origin, parenthood])
 
     x = [['rich', 'innocent', 'happy', 'Canadian', 'non-parent']]
@@ -30,7 +29,7 @@ def trait_gen():
 
     if traits[1] == "robber":
         bio += " They have a criminal record of bank robbery."
-    else:
+    elif traits[1] == "murderer":
         bio += " They have a criminal record of commiting murder."
 
     if traits[3] == 'immigrant':
