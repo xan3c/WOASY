@@ -1,5 +1,3 @@
-from py_avataaars import PyAvataaar
-import py_avataaars as pa
 import random
 from sklearn.preprocessing import OneHotEncoder
 
