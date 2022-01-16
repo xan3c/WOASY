@@ -1,9 +1,10 @@
 import random
-import trait_gen
+from src import trait_gen
 import json
-import avatar_gen
+from src import avatar_gen
 import uuid
-import numpy as np 
+import numpy as np
+
 
 def generateCharacter():
     one_hot_trait, _, bio, age = trait_gen.trait_gen()
@@ -11,13 +12,7 @@ def generateCharacter():
     y = random.randint(0, 700)
 
     one_hot_avatar, _, features = avatar_gen.avatar_gen()
-    person = {
-        "x": x + 50,
-        "y": y + 50,
-        "age": age,
-        "bio": bio,
-        "options": features
-    }
+    person = {"x": x + 50, "y": y + 50, "age": age, "bio": bio, "options": features}
 
     one_hot = np.concatenate((one_hot_trait, one_hot_avatar), axis=1)
 
@@ -42,7 +37,7 @@ def generateScenario():
     life_boat_pos_y = 780  # random.randint(0, 800)
 
     # in seconds
-    Time = int(n_people*3)
+    Time = int(n_people * 3)
 
     scenario = {
         "characters": characters_list,

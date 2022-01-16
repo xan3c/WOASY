@@ -1,7 +1,7 @@
 from sanic import Sanic
 from sanic.response import json, text
 from sanic_cors import CORS, cross_origin
-import scenario_gen
+from src import scenario_gen
 import uuid
 
 games = dict()
@@ -18,7 +18,7 @@ async def scenario_handler(request):
     data["gameID"] = gameID
 
     for key, values in one_hot_encodings.items():
-        dataset[key] = [values, False] # [one_hot encodings, Saved or not] 
+        dataset[key] = [values, False]  # [one_hot encodings, Saved or not]
 
     print(dataset)
     games[gameID] = data
@@ -29,7 +29,7 @@ async def scenario_handler(request):
 @app.post("/finished")
 async def finished_handler(request):
     response = request.json
-    for player_id in response['saved']:
+    for player_id in response["saved"]:
         dataset[player_id] = [dataset[player_id], True]
     return json({"success": True})
 
