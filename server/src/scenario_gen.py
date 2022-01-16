@@ -54,7 +54,7 @@ def generateScenario():
         "maxTime": Time,
     }
 
-    return scenario, one_hot_list
+    return scenario
 
 
 if __name__ == "__main__":
