@@ -19,8 +19,8 @@ export class Game {
 
 		this.app = new PIXI.Application({
 			view: this.canvas,
-			width: 400,
-			height: 400,
+			width: 800,
+			height: 800,
 			backgroundColor: 0xdddddd,
 			resolution: window.devicePixelRatio,
 			autoDensity: true,
@@ -46,16 +46,12 @@ export class Game {
 		let npcList = [];
 		for (const characterObject of sceneObject.characters) {
 			let npc = new NPC(characterObject, this, player);
+			console.log(characterObject);
 			NPCs.addChild(npc);
 			npcList.push(npc);
 		}
 
 		let tick = 0;
-
-		let svg: SVGAElement;
-
-		// let t = PIXI.Texture.from(svg);
-		// console.log(this.app.renderer.plugins.interaction);
 
 		const animate = (dt: number) => {
 			tick += 1;

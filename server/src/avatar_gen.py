@@ -6,7 +6,7 @@ from sklearn.preprocessing import OneHotEncoder
 def avatar_gen():
 
     style = [name for name in dir(pa.AvatarStyle) if not name.startswith('_')]
-    skin_color = [name for name in dir(pa.SkinColor) if not name.startswith('_')]
+    skin_color = ("tanned" , "yellow" , "pale" , "light" , "brown" , "darkBrown" , "black")
     hair_color= [name for name in dir(pa.HairColor) if not name.startswith('_')]
     facial_hair_type= [name for name in dir(pa.FacialHairType) if not name.startswith('_')]
     facial_hair_color= [name for name in dir(pa.HairColor) if not name.startswith('_')]
@@ -41,18 +41,18 @@ def avatar_gen():
 
     traits = []
 
-    for i in categories: 
-  
+    for i in categories:
+
         if i is not style and i is not eye_type:
             traits.append(random.choice(i))
-      
+
         elif i is style:
             traits.append('TRANSPARENT')
-        
+
         elif i is eye_type:
             traits.append('DEFAULT')
 
-    result = enc.transform([traits]).toarray()  
+    result = enc.transform([traits]).toarray()
 
     return result, traits
 
@@ -60,7 +60,7 @@ def ResultsANDSVG():
     result_array, result = avatar_gen()
 
     avatar = PyAvataaar(style = pa.AvatarStyle[result[0]],
-                        skin_color = pa.SkinColor[result[1]],
+                        skin = pa.SkinColor[result[1]],
                         hair_color= pa.HairColor[result[2]],
                         facial_hair_type= pa.FacialHairType[result[3]],
                         facial_hair_color= pa.HairColor[result[4]],
@@ -74,7 +74,7 @@ def ResultsANDSVG():
                         clothe_type= pa.ClotheType[result[12]],
                         clothe_color= pa.Color[result[13]],
                         clothe_graphic_type= pa.ClotheGraphicType[result[14]],
-                        
+
                         )
 
     return avatar.render_svg()

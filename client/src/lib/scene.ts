@@ -1,7 +1,10 @@
+import type { Options } from "@dicebear/avatars";
+import type * as style from "@dicebear/avatars-avataaars-sprites";
+
 export type CharacterObject = {
 	x: number;
 	y: number;
-	svg: SVGElement;
+	options: Partial<style.Options & Options>;
 	age: number;
 	bio: string;
 };
