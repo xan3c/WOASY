@@ -12,9 +12,7 @@ def trait_gen():
 
   x = [['rich', 'innocent', 'happy', 'canadian', 'parent']]
   enc.fit(x)
-
-
-
+  
   categories = [wealth, criminal, mental_state, origin, parenthood]
   traits = []
   for i in categories:
@@ -22,4 +20,5 @@ def trait_gen():
 
   result = enc.transform([traits]).toarray()  
 
-  return result, traits, enc
+  return result
+  
