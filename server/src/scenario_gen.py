@@ -26,7 +26,7 @@ def generateCharacter():
     x = random.randint(0, 700)
     y = random.randint(0, 700)
 
-    _, features = avatar_gen.avatar_gen()
+    _, _, features = avatar_gen.avatar_gen()
     person = {'x': x+50, 'y': y+50, 'age': age, 'bio': bio, 'options': features}
 
     return person
