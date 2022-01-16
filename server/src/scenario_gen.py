@@ -54,9 +54,13 @@ def generateScenario():
         "maxTime": Time,
     }
 
-    return scenario
+    print(one_hot_list)
+    return scenario, one_hot_list
 
 
 if __name__ == "__main__":
-    json_object = json.dumps(generateScenario(), indent=4)
+    scene = generateScenario()
+    avatar = scene[0]
+    one_hot_encoding = scene[1]
+    json_object = json.dumps(avatar, indent=4)
     print(json_object)
