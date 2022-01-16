@@ -4,6 +4,7 @@ import boat from "static/images/boat.png";
 import type { Game } from "./game";
 import type { Player } from "./player";
 import { createAvatar } from "@dicebear/avatars";
+import type { Options } from "@dicebear/avatars";
 import * as style from "@dicebear/avatars-avataaars-sprites";
 
 export class NPC extends PIXI.Sprite {
@@ -19,7 +20,15 @@ export class NPC extends PIXI.Sprite {
 		this.x = character.x;
 		this.y = character.y;
 
-		let svg = createAvatar(style, character.options);
+		let options: Partial<style.Options & Options> = {};
+
+		Object.keys(character.options).forEach((key) => {
+			options[key] = [character.options[key]];
+		});
+
+		console.log(options);
+
+		let svg = createAvatar(style, { ...options, mode: "include", style: "transparent" });
 
 		let blob = new Blob([svg], { type: "image/svg+xml" });
 		let url = URL.createObjectURL(blob);
@@ -35,6 +44,8 @@ export class NPC extends PIXI.Sprite {
 		this.game = game;
 		this.player = player;
 
+		this.sortableChildren = true;
+
 		this.interactive = true;
 		(this as any).mouseover = (mouseData) => {
 			this.mouseOver = true;
@@ -49,24 +60,28 @@ export class NPC extends PIXI.Sprite {
 			});
 			text.anchor.set(0.5, 0.5);
 			text.position.set(0, -1000);
-			text.zIndex = 100;
-			this.sortableChildren = true;
+			text.zIndex = 2;
+			this.zIndex = 1;
+
 			this.addChild(text);
 		};
 		(this as any).mouseout = (mouseData) => {
 			this.mouseOver = false;
+			this.zIndex = 0;
 
 			this.removeChildren();
 		};
 		(this as any).mousedown = (mouseData) => {
 			if (this.checkDistance()) {
-				this.pickup();
+				this.save();
 			}
 		};
 	}
 
-	pickup() {
-		this.position.set(0, 0);
+	save() {
+		this.game.NPCs.removeChild(this);
+		this.game = null;
+		this.player = null;
 	}
 
 	tick() {

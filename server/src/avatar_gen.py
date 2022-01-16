@@ -1,86 +1,320 @@
-from py_avataaars import PyAvataaar
-import py_avataaars as pa
 import random
 from sklearn.preprocessing import OneHotEncoder
 
+
 def avatar_gen():
 
-  style = ["transparent"]
+    skin = ["tanned", "yellow", "pale", "light", "brown", "darkBrown", "black"]
+    # skin = ["tanned"]
 
-  skin = ["tanned", "yellow", "pale", "light", "brown", "darkBrown", "black"]
+    hairColor = [
+        "auburn",
+        "black",
+        "blonde",
+        "blondeGolden",
+        "brown",
+        "brownDark",
+        "pastel",
+        "pastelPink",
+        "platinum",
+        "red",
+        "gray",
+        "silverGray",
+    ]
 
-  hairColor= ["auburn", "black", "blonde", "blondeGolden", "brown", "brownDark", "pastel", "pastelPink", "platinum", "red", "gray", "silverGray"]
-  
-  facialHair= ["medium", "beardMedium", "light", "beardLight", "majestic", "beardMajestic", "fancy", "moustaceFancy", "magnum", "moustacheMagnum"]
+    facialHair = [
+        "medium",
+        "beardMedium",
+        "light",
+        "beardLight",
+        "majestic",
+        "beardMajestic",
+        "fancy",
+        "moustaceFancy",
+        "magnum",
+        "moustacheMagnum",
+    ]
 
-  facialHairColor= ["auburn", "black", "blonde", "blondeGolden", "brown", "brownDark", "pastel", "pastelPink", "platinum", "red", "gray", "silverGray"]
+    facialHairColor = [
+        "auburn",
+        "black",
+        "blonde",
+        "blondeGolden",
+        "brown",
+        "brownDark",
+        "pastel",
+        "pastelPink",
+        "platinum",
+        "red",
+        "gray",
+        "silverGray",
+    ]
 
-  top = ["longHair", "shortHair", "eyepatch", "hat", "hijab", "turban", "bigHair", "bob", "bun", "curly", "curvy", "dreads", "frida", "fro", "froAndBand", "miaWallace", "longButNotTooLong", "shavedSides", "straight01", "straight02", "straightAndStrand", "dreads01", "dreads02", "frizzle", "shaggy", "shaggyMullet", "shortCurly", "shortFlat", "shortRound", "shortWaved", "sides", "theCaesar", "theCaesarAndSidePart", "winterHat01", "winterHat02", "winterHat03", "winterHat04"]
+    top = [
+        "longHair",
+        "shortHair",
+        "eyepatch",
+        "hat",
+        "hijab",
+        "turban",
+        "bigHair",
+        "bob",
+        "bun",
+        "curly",
+        "curvy",
+        "dreads",
+        "frida",
+        "fro",
+        "froAndBand",
+        "miaWallace",
+        "longButNotTooLong",
+        "shavedSides",
+        "straight01",
+        "straight02",
+        "straightAndStrand",
+        "dreads01",
+        "dreads02",
+        "frizzle",
+        "shaggy",
+        "shaggyMullet",
+        "shortCurly",
+        "shortFlat",
+        "shortRound",
+        "shortWaved",
+        "sides",
+        "theCaesar",
+        "theCaesarAndSidePart",
+        "winterHat01",
+        "winterHat02",
+        "winterHat03",
+        "winterHat04",
+    ]
 
-  hatColor= ["black", "blue", "blue01", "blue02", "blue03", "gray", "gray01", "gray02", "heather", "pastel", "pastelBlue", "pastelGreen", "pastelOrange", "pastelRed", "pastelYellow", "pink", "red", "white"]
-  
-  mouth= ["concerned" , "default" , "disbelief" , "eating" , "grimace" , "sad" , "scream" , "screamOpen" , "serious" , "smile" , "tongue" , "twinkle" , "vomit"]
+    hatColor = [
+        "black",
+        "blue",
+        "blue01",
+        "blue02",
+        "blue03",
+        "gray",
+        "gray01",
+        "gray02",
+        "heather",
+        "pastel",
+        "pastelBlue",
+        "pastelGreen",
+        "pastelOrange",
+        "pastelRed",
+        "pastelYellow",
+        "pink",
+        "red",
+        "white",
+    ]
 
-  eyes = ["close" , "closed" , "cry" , "default" , "dizzy" , "xDizzy" , "roll" , "eyeRoll" , "happy" , "hearts" , "side" , "squint" , "surprised" , "wink" , "winkWacky"]
-  
-  eyebrow = ["angry" , "angryNatural" , "default" , "defaultNatural" , "flat" , "flatNatural" , "raised" , "raisedExcited" , "raisedExcitedNatural" , "sad" , "sadConcerned" , "sadConcernedNatural" , "unibrow" , "unibrowNatural" , "up" , "upDown" , "upDownNatural" , "frown" , "frownNatural"]
+    mouth = [
+        "concerned",
+        "default",
+        "disbelief",
+        "eating",
+        "grimace",
+        "sad",
+        "scream",
+        "screamOpen",
+        "serious",
+        "smile",
+        "tongue",
+        "twinkle",
+        "vomit",
+    ]
 
-  accessories = ["kurt" , "prescription01" , "prescription02" , "round" , "sunglasses" , "wayfarers"]
+    eyes = [
+        "close",
+        "closed",
+        "cry",
+        "default",
+        "dizzy",
+        "xDizzy",
+        "roll",
+        "eyeRoll",
+        "happy",
+        "hearts",
+        "side",
+        "squint",
+        "surprised",
+        "wink",
+        "winkWacky",
+    ]
 
-  accessoriesColor = ["black" , "blue" , "blue01" , "blue02" , "blue03" , "gray" , "gray01" , "gray02" , "heather" , "pastel" , "pastelBlue" , "pastelGreen" , "pastelOrange" , "pastelRed" , "pastelYellow" , "pink" , "red" , "white"]
+    eyebrow = [
+        "angry",
+        "angryNatural",
+        "default",
+        "defaultNatural",
+        "flat",
+        "flatNatural",
+        "raised",
+        "raisedExcited",
+        "raisedExcitedNatural",
+        "sad",
+        "sadConcerned",
+        "sadConcernedNatural",
+        "unibrow",
+        "unibrowNatural",
+        "up",
+        "upDown",
+        "upDownNatural",
+        "frown",
+        "frownNatural",
+    ]
 
-  clothe = ["blazer" , "blazerAndShirt" , "blazerAndSweater" , "sweater" , "collarAndSweater" , "shirt" , "graphicShirt" , "shirtCrewNeck" , "shirtScoopNeck" , "shirtVNeck" , "hoodie" , "overall"]
-  
-  clothesColor= ["black" , "blue" , "blue01" , "blue02" , "blue03" , "gray" , "gray01" , "gray02" , "heather" , "pastel" , "pastelBlue" , "pastelGreen" , "pastelOrange" , "pastelRed" , "pastelYellow" , "pink" , "red" , "white"]
-  
-  clotheGraphics= ["skullOutline" , "skull" , "resist" , "pizza" , "hola" , "diamond" , "deer" , "cumbia" , "bear" , "bat"]
+    accessories = ["kurt", "prescription01", "prescription02", "round", "sunglasses", "wayfarers"]
 
-  facialHairChance = 0.5
-  accessoriesChance = 0.5
-  topChance = 0.5
-  mode = ["include", "exclude"]
+    accessoriesColor = [
+        "black",
+        "blue",
+        "blue01",
+        "blue02",
+        "blue03",
+        "gray",
+        "gray01",
+        "gray02",
+        "heather",
+        "pastel",
+        "pastelBlue",
+        "pastelGreen",
+        "pastelOrange",
+        "pastelRed",
+        "pastelYellow",
+        "pink",
+        "red",
+        "white",
+    ]
 
-  enc = OneHotEncoder( categories=[
-                                  style, skin, hairColor,
-                                  facialHair, facialHairColor,
-                                  top, hatColor, mouth,
-                                  eyes, eyebrow,
-                                  accessories, accessoriesColor, clothe,
-                                  clothesColor, clotheGraphics, mode
-              ])
+    clothe = [
+        "blazer",
+        "blazerAndShirt",
+        "blazerAndSweater",
+        "sweater",
+        "collarAndSweater",
+        "shirt",
+        "graphicShirt",
+        "shirtCrewNeck",
+        "shirtScoopNeck",
+        "shirtVNeck",
+        "hoodie",
+        "overall",
+    ]
 
-  enc.fit([['transparent', 'tanned', 'auburn', 'medium', 'auburn', 'longHair', 'black', 'concerned', 'close', 'angry', 'kurt', 'black', 'blazer', 'black','bat', 'include']])
+    clothesColor = [
+        "black",
+        "blue",
+        "blue01",
+        "blue02",
+        "blue03",
+        "gray",
+        "gray01",
+        "gray02",
+        "heather",
+        "pastel",
+        "pastelBlue",
+        "pastelGreen",
+        "pastelOrange",
+        "pastelRed",
+        "pastelYellow",
+        "pink",
+        "red",
+        "white",
+    ]
 
+    clotheGraphics = ["skullOutline", "skull", "resist", "pizza", "hola", "diamond", "deer", "cumbia", "bear", "bat"]
 
-  categories=[
-                                  style, skin, hairColor,
-                                  facialHair, facialHairColor,
-                                  top, hatColor, mouth,
-                                  eyes, eyebrow,
-                                  accessories, accessoriesColor, clothe,
-                                  clothesColor, clotheGraphics, mode
-              ]
-  category_names=[
-                                  'style', 'skin', 'hairColor',
-                                  'facialHair', 'facialHairColor',
-                                  'top', 'hatColor', 'mouth',
-                                  'eyes', 'eyebrow',
-                                  'accessories', 'accessoriesColor', 'clothe',
-                                  'clothesColor', 'clotheGraphics', 'mode'
-              ]
+    facialHairChance = 0.5
+    accessoriesChance = 0.5
+    topChance = 0.5
 
-  traits = []
-  dictionary = {}
+    enc = OneHotEncoder(
+        categories=[
+            skin,
+            hairColor,
+            facialHair,
+            facialHairColor,
+            top,
+            hatColor,
+            mouth,
+            eyes,
+            eyebrow,
+            accessories,
+            accessoriesColor,
+            clothe,
+            clothesColor,
+            clotheGraphics,
+        ]
+    )
 
-  for i in range(len(categories)): 
+    enc.fit(
+        [
+            [
+                "tanned",
+                "auburn",
+                "medium",
+                "auburn",
+                "longHair",
+                "black",
+                "concerned",
+                "close",
+                "angry",
+                "kurt",
+                "black",
+                "blazer",
+                "black",
+                "bat",
+            ]
+        ]
+    )
 
-    choices = categories[i]
-    decision = random.choice(choices)
-    traits.append(decision)
-    dictionary.update({category_names[i]:decision})
+    categories = [
+        skin,
+        hairColor,
+        facialHair,
+        facialHairColor,
+        top,
+        hatColor,
+        mouth,
+        eyes,
+        eyebrow,
+        accessories,
+        accessoriesColor,
+        clothe,
+        clothesColor,
+        clotheGraphics,
+    ]
+    category_names = [
+        "skin",
+        "hairColor",
+        "facialHair",
+        "facialHairColor",
+        "top",
+        "hatColor",
+        "mouth",
+        "eyes",
+        "eyebrow",
+        "accessories",
+        "accessoriesColor",
+        "clothe",
+        "clothesColor",
+        "clotheGraphics",
+    ]
 
+    traits = []
+    dictionary = {}
 
-  result = enc.transform([traits]).toarray()  
+    for i in range(len(categories)):
 
-  return result, traits, dictionary
-  
+        choices = categories[i]
+        decision = random.choice(choices)
+        traits.append(decision)
+        dictionary.update({category_names[i]: decision})
+
+    result = enc.transform([traits]).toarray()
+
+    return result, traits, dictionary
