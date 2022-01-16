@@ -22,4 +22,4 @@ def trait_gen():
 
   result = enc.transform([traits]).toarray()  
 
-  return result, traits, enc
+  return result
