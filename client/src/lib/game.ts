@@ -19,9 +19,9 @@ export class Game {
 
 		this.app = new PIXI.Application({
 			view: this.canvas,
-			width: 400,
-			height: 400,
-			backgroundColor: 0xdddddd,
+			width: 600,
+			height: 600,
+			backgroundColor: 0x1c9be3,
 			resolution: window.devicePixelRatio,
 			autoDensity: true,
 			antialias: true,

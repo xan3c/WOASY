@@ -18,7 +18,7 @@ export class NPC extends PIXI.Sprite {
 	constructor(character: CharacterObject, game: Game, player: Player) {
 		super(texture);
 		this.scale.set(0.05, 0.05);
-		this.rotation = (2 * Math.PI) / 2;
+		this.rotation = (4 * Math.PI) / 2;
 		this.character = character;
 		this.game = game;
 		this.player = player;
@@ -26,17 +26,33 @@ export class NPC extends PIXI.Sprite {
 		this.interactive = true;
 		(this as any).mouseover = (mouseData) => {
 			this.mouseOver = true;
+
+			let lines = character.bio.split(".").join("\n");
+			let text = new PIXI.Text(lines, {
+				fontFamily: "Arial",
+				fontSize: 200,
+				fontWeight: "bold",
+				fill: 0xffffff,
+				align: "center",
+			});
+			text.anchor.set(0.5, 0.5);
+			text.position.set(0, -1000);
+			text.zIndex = 100;
+			this.sortableChildren = true;
+			this.addChild(text);
 		};
 		(this as any).mouseout = (mouseData) => {
 			this.mouseOver = false;
+
+			this.removeChildren();
 		};
 		(this as any).mousedown = (mouseData) => {
 			if (this.checkDistance()) {
-				console.log("saved");
+				this.pickup();
 			}
 		};
 
-		this.position.set(Math.random() * 400, Math.random() * 400);
+		this.position.set(Math.random() * 400 + 100, Math.random() * 400 + 100);
 	}
 
 	pickup() {
