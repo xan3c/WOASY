@@ -20,14 +20,15 @@ export type SceneObject = {
 import random
 import trait_gen
 import json
+import avatar_gen
 
 def generateCharacter():
     _, _, bio, age = trait_gen.trait_gen()
     x = random.randint(0, 700)
     y = random.randint(0, 700)
 
-    # Not too sure how to deal with svg
-    person = {'x': x+50, 'y': y+50, 'age': age, 'bio': bio}
+    SVG = avatar_gen.ResultsANDSVG()
+    person = {'x': x+50, 'y': y+50, 'age': age, 'bio': bio, 'svg': SVG}
 
     return person
 
