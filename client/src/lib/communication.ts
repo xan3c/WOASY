@@ -9,3 +9,18 @@ export const get_scenario = async (): Promise<SceneObject> => {
 
 	return response.json();
 };
+
+export const finished = async (gameID: string, saved: string[]) => {
+	let url = new URL("/finished", serverURL);
+
+	let response = await fetch(url.toString(), {
+		method: "POST",
+		headers: {
+			Accept: "application/json",
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({ gameID: gameID, saved: saved }),
+	});
+
+	return response.json();
+};

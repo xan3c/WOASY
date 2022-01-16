@@ -8,6 +8,8 @@ import type { Options } from "@dicebear/avatars";
 import * as style from "@dicebear/avatars-avataaars-sprites";
 
 export class NPC extends PIXI.Sprite {
+	id: string;
+
 	character: CharacterObject;
 	game: Game;
 	player: Player;
@@ -16,6 +18,7 @@ export class NPC extends PIXI.Sprite {
 
 	constructor(character: CharacterObject, game: Game, player: Player) {
 		super();
+		this.id = character.id;
 		this.anchor.set(0.5, 0.5);
 		this.x = character.x;
 		this.y = character.y;
@@ -25,8 +28,6 @@ export class NPC extends PIXI.Sprite {
 		Object.keys(character.options).forEach((key) => {
 			options[key] = [character.options[key]];
 		});
-
-		console.log(options);
 
 		let svg = createAvatar(style, { ...options, mode: "include", style: "transparent" });
 
@@ -73,15 +74,9 @@ export class NPC extends PIXI.Sprite {
 		};
 		(this as any).mousedown = (mouseData) => {
 			if (this.checkDistance()) {
-				this.save();
+				this.game.removeNPC(this);
 			}
 		};
-	}
-
-	save() {
-		this.game.NPCs.removeChild(this);
-		this.game = null;
-		this.player = null;
 	}
 
 	tick() {

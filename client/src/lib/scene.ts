@@ -2,6 +2,7 @@ import type { Options } from "@dicebear/avatars";
 import type * as style from "@dicebear/avatars-avataaars-sprites";
 
 export type CharacterObject = {
+	id: string;
 	x: number;
 	y: number;
 	options: Partial<style.Options & Options>;
@@ -10,6 +11,7 @@ export type CharacterObject = {
 };
 
 export type SceneObject = {
+	gameID: string;
 	characters: CharacterObject[];
 	lifeboat: {
 		x: number;

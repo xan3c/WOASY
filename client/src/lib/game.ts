@@ -3,14 +3,17 @@ import { Key } from "$lib/input";
 import { Player } from "$lib/player";
 import type { SceneObject, CharacterObject } from "$lib/scene";
 import { NPC } from "./npc";
-import { get_scenario } from "$lib/communication";
-import { get } from "svelte/store";
+import { finished, get_scenario } from "$lib/communication";
+import { get, writable } from "svelte/store";
 import { timeRemaining, capacityRemaining } from "$lib/store";
 
 export class Game {
+	gameID: string;
 	app: PIXI.Application;
 	canvas: HTMLCanvasElement;
 	NPCs: PIXI.Container;
+	isGameOver = false;
+	saved: string[] = [];
 
 	constructor(canvas: HTMLCanvasElement) {
 		this.canvas = canvas;
@@ -18,6 +21,7 @@ export class Game {
 
 	async start() {
 		let sceneObject = await get_scenario();
+		this.gameID = sceneObject.gameID;
 
 		this.app = new PIXI.Application({
 			view: this.canvas,
@@ -42,8 +46,6 @@ export class Game {
 		let keyA = new Key("a");
 		let keyD = new Key("d");
 
-		let keySpace = new Key(" ");
-
 		for (const characterObject of sceneObject.characters) {
 			let npc = new NPC(characterObject, this, player);
 			this.NPCs.addChild(npc);
@@ -59,6 +61,7 @@ export class Game {
 
 			if (get(timeRemaining) <= 0) {
 				clearInterval(timer);
+				this.gameOver();
 			}
 		}, 1000);
 
@@ -71,5 +74,33 @@ export class Game {
 		};
 
 		this.app.ticker.add(animate);
+	}
+
+	removeNPC(npc: NPC) {
+		if (get(capacityRemaining) > 0) {
+			capacityRemaining.update((n) => (n -= 1));
+			this.saved.push(npc.id);
+
+			this.NPCs.removeChild(npc);
+
+			if (get(capacityRemaining) <= 0) {
+				this.gameOver();
+			}
+		}
+	}
+
+	async gameOver() {
+		if (!this.isGameOver) {
+			this.isGameOver = true;
+
+			timeRemaining.set(null);
+			capacityRemaining.set(null);
+
+			setTimeout(() => {
+				this.app.ticker.destroy();
+			}, 100);
+
+			finished(this.gameID, this.saved);
+		}
 	}
 }

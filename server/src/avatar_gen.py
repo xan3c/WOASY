@@ -5,7 +5,6 @@ from sklearn.preprocessing import OneHotEncoder
 def avatar_gen():
 
     skin = ["tanned", "yellow", "pale", "light", "brown", "darkBrown", "black"]
-    # skin = ["tanned"]
 
     hairColor = [
         "auburn",
