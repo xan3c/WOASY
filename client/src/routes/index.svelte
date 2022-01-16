@@ -36,7 +36,7 @@
 	canvas {
 		padding: 0;
 		margin: 0;
-		width: 800px;
+		width: 1000px;
 		height: 800px;
 	}
 
