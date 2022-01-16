@@ -18,9 +18,11 @@ def avatar_gen():
   top = ["longHair", "shortHair", "eyepatch", "hat", "hijab", "turban", "bigHair", "bob", "bun", "curly", "curvy", "dreads", "frida", "fro", "froAndBand", "miaWallace", "longButNotTooLong", "shavedSides", "straight01", "straight02", "straightAndStrand", "dreads01", "dreads02", "frizzle", "shaggy", "shaggyMullet", "shortCurly", "shortFlat", "shortRound", "shortWaved", "sides", "theCaesar", "theCaesarAndSidePart", "winterHat01", "winterHat02", "winterHat03", "winterHat04"]
 
   hatColor= ["black", "blue", "blue01", "blue02", "blue03", "gray", "gray01", "gray02", "heather", "pastel", "pastelBlue", "pastelGreen", "pastelOrange", "pastelRed", "pastelYellow", "pink", "red", "white"]
+  
   mouth= ["concerned" , "default" , "disbelief" , "eating" , "grimace" , "sad" , "scream" , "screamOpen" , "serious" , "smile" , "tongue" , "twinkle" , "vomit"]
 
   eyes = ["close" , "closed" , "cry" , "default" , "dizzy" , "xDizzy" , "roll" , "eyeRoll" , "happy" , "hearts" , "side" , "squint" , "surprised" , "wink" , "winkWacky"]
+  
   eyebrow = ["angry" , "angryNatural" , "default" , "defaultNatural" , "flat" , "flatNatural" , "raised" , "raisedExcited" , "raisedExcitedNatural" , "sad" , "sadConcerned" , "sadConcernedNatural" , "unibrow" , "unibrowNatural" , "up" , "upDown" , "upDownNatural" , "frown" , "frownNatural"]
 
   accessories = ["kurt" , "prescription01" , "prescription02" , "round" , "sunglasses" , "wayfarers"]
@@ -28,7 +30,9 @@ def avatar_gen():
   accessoriesColor = ["black" , "blue" , "blue01" , "blue02" , "blue03" , "gray" , "gray01" , "gray02" , "heather" , "pastel" , "pastelBlue" , "pastelGreen" , "pastelOrange" , "pastelRed" , "pastelYellow" , "pink" , "red" , "white"]
 
   clothe = ["blazer" , "blazerAndShirt" , "blazerAndSweater" , "sweater" , "collarAndSweater" , "shirt" , "graphicShirt" , "shirtCrewNeck" , "shirtScoopNeck" , "shirtVNeck" , "hoodie" , "overall"]
+  
   clothesColor= ["black" , "blue" , "blue01" , "blue02" , "blue03" , "gray" , "gray01" , "gray02" , "heather" , "pastel" , "pastelBlue" , "pastelGreen" , "pastelOrange" , "pastelRed" , "pastelYellow" , "pink" , "red" , "white"]
+  
   clotheGraphics= ["skullOutline" , "skull" , "resist" , "pizza" , "hola" , "diamond" , "deer" , "cumbia" , "bear" , "bat"]
 
   facialHairChance = 0.5
@@ -79,3 +83,4 @@ def avatar_gen():
   result = enc.transform([traits]).toarray()  
 
   return result, traits, dictionary
+  
