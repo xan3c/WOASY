@@ -24,6 +24,8 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@dicebear/avatars": "^4.10.2",
+		"@dicebear/avatars-avataaars-sprites": "^4.10.2",
 		"pixi.js": "^6.2.1"
 	}
 }

@@ -1,10 +1,11 @@
 from sanic import Sanic
 from sanic.response import json, text
 from sanic_cors import CORS, cross_origin
-import scenario_gen 
+import scenario_gen
 
 app = Sanic("server")
 cors = CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+
 
 @app.get("/scenario")
 async def scenario_handler(request):
