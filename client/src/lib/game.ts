@@ -4,19 +4,7 @@ import png from "static/images/test.png";
 import { Player } from "$lib/player";
 import type { SceneObject, CharacterObject } from "$lib/scene";
 import { NPC } from "./npc";
-
-let char1: CharacterObject;
-let char2: CharacterObject;
-let sceneObject: SceneObject = {
-	characters: [],
-	lifeboat: {
-		x: 0,
-		y: 0,
-		maxCapacity: 0,
-	},
-	maxTime: 0,
-};
-sceneObject.characters.push(char1, char2);
+import { get_scenario } from "$lib/communication";
 
 export class Game {
 	app: PIXI.Application;
@@ -27,8 +15,7 @@ export class Game {
 	}
 
 	async start() {
-		let scenario = await get_scenario();
-		console.log(scenario);
+		let sceneObject = await get_scenario();
 
 		this.app = new PIXI.Application({
 			view: this.canvas,
@@ -39,13 +26,14 @@ export class Game {
 			autoDensity: true,
 			antialias: true,
 		});
+		this.app.stage.sortableChildren = true;
 
-		let container = new PIXI.Container();
-		this.app.stage.addChild(container);
-		container.sortableChildren = true;
+		let NPCs = new PIXI.Container();
+		NPCs.sortableChildren = true;
+		this.app.stage.addChild(NPCs);
 
 		let player = new Player();
-		container.addChild(player);
+		this.app.stage.addChild(player);
 		player.zIndex = 10;
 
 		let keyW = new Key("w");
@@ -56,14 +44,11 @@ export class Game {
 		let keySpace = new Key(" ");
 
 		let npcList = [];
-		for (let i = 0; i < 4; i++) {
-			let npc = new NPC(sceneObject.characters[i], this, player);
-			this.app.stage.addChild(npc);
+		for (const characterObject of sceneObject.characters) {
+			let npc = new NPC(characterObject, this, player);
+			NPCs.addChild(npc);
 			npcList.push(npc);
 		}
-
-		let sprite = new PIXI.Sprite(texture);
-		this.app.stage.addChild(sprite);
 
 		let tick = 0;
 
@@ -71,16 +56,6 @@ export class Game {
 
 		// let t = PIXI.Texture.from(svg);
 		// console.log(this.app.renderer.plugins.interaction);
-
-		sprite.interactive = true;
-
-		(sprite as any).mouseover = (mouseData) => {
-			sprite.alpha = 0.5;
-		};
-
-		(sprite as any).mouseout = (mouseData) => {
-			sprite.alpha = 0.5;
-		};
 
 		const animate = (dt: number) => {
 			tick += 1;
