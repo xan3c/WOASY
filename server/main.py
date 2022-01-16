@@ -30,7 +30,7 @@ async def scenario_handler(request):
 async def finished_handler(request):
     response = request.json
     for player_id in response["saved"]:
-        dataset[player_id] = [dataset[player_id], True]
+        dataset[player_id] = [dataset[player_id][0], True]
     return json({"success": True})
 
 
