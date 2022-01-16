@@ -42,7 +42,7 @@ def generateScenario():
     life_boat_pos_y = 780  # random.randint(0, 800)
 
     # in seconds
-    Time = 20
+    Time = int(n_people*3)
 
     scenario = {
         "characters": characters_list,
