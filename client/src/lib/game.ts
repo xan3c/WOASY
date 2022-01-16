@@ -27,20 +27,23 @@ export class Game {
 
 		this.app = new PIXI.Application({
 			view: this.canvas,
-			width: 800,
-			height: 800,
-			backgroundColor: 0xdddddd,
+			width: 1000,
+			height: 820,
+			backgroundColor: 0xffffff,
 			resolution: window.devicePixelRatio,
 			autoDensity: true,
 			antialias: true,
 			forceCanvas: true,
 		});
 		this.app.stage.sortableChildren = true;
+		this.app.stage.position.set(100, 20);
 
 		let backgroundTexture = PIXI.Texture.from(background);
-		backgroundTexture.defaultAnchor.set(0.5, 0.5);
+		// backgroundTexture.defaultAnchor.set(0.5, 0.5);
 		let backgroundSprite = new PIXI.Sprite(backgroundTexture);
-		backgroundSprite.scale.set(3);
+		backgroundSprite.filters = [new PIXI.filters.BlurFilter()];
+		backgroundSprite.alpha = 0.8;
+		backgroundSprite.scale.set(4);
 		backgroundSprite.zIndex = -1;
 		this.app.stage.addChild(backgroundSprite);
 

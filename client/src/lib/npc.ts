@@ -56,7 +56,7 @@ export class NPC extends PIXI.Sprite {
 				fontFamily: "Arial",
 				fontSize: 30,
 				fontWeight: "bold",
-				fill: 0xffffff,
+				fill: 0x000000,
 				align: "center",
 			});
 			text.anchor.set(0.5, 0.5);

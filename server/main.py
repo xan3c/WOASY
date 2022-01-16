@@ -28,7 +28,9 @@ async def scenario_handler(request):
 
 @app.post("/finished")
 async def finished_handler(request):
+    # print("------------")
     response = request.json
+    # print(response)
     for player_id in response["saved"]:
         dataset[player_id] = [dataset[player_id], True]
     return json({"success": True})
