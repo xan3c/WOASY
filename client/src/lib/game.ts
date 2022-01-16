@@ -1,9 +1,22 @@
 import * as PIXI from "pixi.js";
-import png from "../../static/favicon.png";
-import png2 from "static/favicon.png";
-import { get_scenario } from "$lib/communication";
+import { Key } from "$lib/input";
+import png from "static/images/test.png";
+import { Player } from "$lib/player";
+import type { SceneObject, CharacterObject } from "$lib/scene";
+import { NPC } from "./npc";
 
-const texture = PIXI.Texture.from(png2);
+let char1: CharacterObject;
+let char2: CharacterObject;
+let sceneObject: SceneObject = {
+	characters: [],
+	lifeboat: {
+		x: 0,
+		y: 0,
+		maxCapacity: 0,
+	},
+	maxTime: 0,
+};
+sceneObject.characters.push(char1, char2);
 
 export class Game {
 	app: PIXI.Application;
@@ -19,8 +32,9 @@ export class Game {
 
 		this.app = new PIXI.Application({
 			view: this.canvas,
-			width: 800,
-			height: 800,
+			width: 400,
+			height: 400,
+			backgroundColor: 0xdddddd,
 			resolution: window.devicePixelRatio,
 			autoDensity: true,
 			antialias: true,
@@ -28,13 +42,25 @@ export class Game {
 
 		let container = new PIXI.Container();
 		this.app.stage.addChild(container);
+		container.sortableChildren = true;
 
-		let graphics = new PIXI.Graphics();
-		graphics.beginFill(0xffffff);
-		graphics.drawCircle(0, 0, 30);
-		graphics.endFill();
+		let player = new Player();
+		container.addChild(player);
+		player.zIndex = 10;
 
-		this.app.stage.addChild(graphics);
+		let keyW = new Key("w");
+		let keyS = new Key("s");
+		let keyA = new Key("a");
+		let keyD = new Key("d");
+
+		let keySpace = new Key(" ");
+
+		let npcList = [];
+		for (let i = 0; i < 4; i++) {
+			let npc = new NPC(sceneObject.characters[i], this, player);
+			this.app.stage.addChild(npc);
+			npcList.push(npc);
+		}
 
 		let sprite = new PIXI.Sprite(texture);
 		this.app.stage.addChild(sprite);
@@ -57,10 +83,11 @@ export class Game {
 		};
 
 		const animate = (dt: number) => {
-			graphics.x = 400 + 100 * Math.cos(tick / 20);
-			graphics.y = 400 + 100 * Math.sin(tick / 20);
-
 			tick += 1;
+
+			player.move(keyW, keyS, keyA, keyD);
+
+			npcList.forEach((npc) => npc.tick());
 		};
 
 		this.app.ticker.add(animate);

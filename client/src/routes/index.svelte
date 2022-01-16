@@ -3,6 +3,11 @@
 
 	let handleResize = () => {};
 	let canvas: HTMLCanvasElement;
+	let text: string;
+	let num: number;
+
+	const f = (str: string) => {};
+	f(text);
 
 	onMount(async () => {
 		const gameLib = await import("$lib/game");
@@ -39,5 +44,6 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		/* cursor: url("images/life.png"), auto; */
 	}
 </style>
