@@ -32,6 +32,7 @@ export class Game {
 			resolution: window.devicePixelRatio,
 			autoDensity: true,
 			antialias: true,
+			forceCanvas: true,
 		});
 		this.app.stage.sortableChildren = true;
 
