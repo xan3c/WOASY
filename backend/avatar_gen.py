@@ -39,11 +39,16 @@ def avatar_gen():
                                   clothe_color, clothe_graphic_type
               ]
 
-  traits = ['TRANSPARENT']
+  traits = []
 
   for i in categories: 
+  
     if i is not style and i is not eye_type:
       traits.append(random.choice(i))
+      
+    elif i is style:
+        traits.append('TRANSPARENT')
+        
     elif i is eye_type:
       traits.append('DEFAULT')
 
