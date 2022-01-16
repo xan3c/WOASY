@@ -3,23 +3,25 @@ import trait_gen
 import json
 import avatar_gen
 import uuid
-
+import numpy as np 
 
 def generateCharacter():
-    _, _, bio, age = trait_gen.trait_gen()
+    one_hot_trait, _, bio, age = trait_gen.trait_gen()
     x = random.randint(0, 700)
     y = random.randint(0, 700)
 
-    _, _, features = avatar_gen.avatar_gen()
+    one_hot_avatar, _, features = avatar_gen.avatar_gen()
     person = {
         "x": x + 50,
         "y": y + 50,
         "age": age,
         "bio": bio,
-        "options": features,
+        "options": features
     }
 
-    return person
+    one_hot = np.concatenate((one_hot_trait, one_hot_avatar), axis=1)
+
+    return person, one_hot
 
 
 def generateScenario():
@@ -27,17 +29,20 @@ def generateScenario():
     n_spots = 5
 
     characters_list = []
+    one_hot_list = {}
 
     for i in range(n_people):
-        c = generateCharacter()
-        c["id"] = uuid.uuid4().hex
+        c, one_hot = generateCharacter()
+        hex_id = uuid.uuid4().hex
+        c["id"] = hex_id
         characters_list.append(c)
+        one_hot_list[hex_id] = one_hot
 
     life_boat_pos_x = 400  # random.randint(0, 800)
     life_boat_pos_y = 780  # random.randint(0, 800)
 
     # in seconds
-    Time = 10
+    Time = 20
 
     scenario = {
         "characters": characters_list,
@@ -49,7 +54,7 @@ def generateScenario():
         "maxTime": Time,
     }
 
-    return scenario
+    return scenario, one_hot_list
 
 
 if __name__ == "__main__":
