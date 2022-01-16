@@ -6,6 +6,7 @@ import { NPC } from "./npc";
 import { finished, get_scenario } from "$lib/communication";
 import { get, writable } from "svelte/store";
 import { timeRemaining, capacityRemaining } from "$lib/store";
+import background from "static/images/background.jpg";
 
 export class Game {
 	gameID: string;
@@ -35,6 +36,13 @@ export class Game {
 			forceCanvas: true,
 		});
 		this.app.stage.sortableChildren = true;
+
+		let backgroundTexture = PIXI.Texture.from(background);
+		backgroundTexture.defaultAnchor.set(0.5, 0.5);
+		let backgroundSprite = new PIXI.Sprite(backgroundTexture);
+		backgroundSprite.scale.set(3);
+		backgroundSprite.zIndex = -1;
+		this.app.stage.addChild(backgroundSprite);
 
 		this.NPCs = new PIXI.Container();
 		this.NPCs.sortableChildren = true;
