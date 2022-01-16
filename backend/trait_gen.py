@@ -48,5 +48,3 @@ def trait_gen():
     age = random.randint(18, 65)
 
     return result, traits, bio, age
-
-print(trait_gen())
