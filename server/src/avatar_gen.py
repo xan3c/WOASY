@@ -36,9 +36,16 @@ def avatar_gen():
   topChance = 0.5
   mode = ["include", "exclude"]
 
-  #enc = OneHotEncoder(categories=[style, skin])
+  enc = OneHotEncoder( categories=[
+                                  style, skin, hairColor,
+                                  facialHair, facialHairColor,
+                                  top, hatColor, mouth,
+                                  eyes, eyebrow,
+                                  accessories, accessoriesColor, clothe,
+                                  clothesColor, clotheGraphics, mode
+              ])
 
-  #enc.fit([['TRANSPARENT', 'LIGHT', 'BROWN', 'DEFAULT', 'BLACK', 'SHORT_HAIR_SHORT_FLAT', 'BLACK', 'SMILE', 'DEFAULT', 'DEFAULT', 'DEFAULT', 'DEFAULT', 'GRAPHIC_SHIRT', 'HEATHER','BAT']])
+  enc.fit([['transparent', 'tanned', 'auburn', 'medium', 'auburn', 'longHair', 'black', 'concerned', 'close', 'angry', 'kurt', 'black', 'blazer', 'black','bat', 'include']])
 
 
   categories=[
@@ -69,6 +76,6 @@ def avatar_gen():
     dictionary.update({category_names[i]:decision})
 
 
-  #result = enc.transform([traits]).toarray()  
+  result = enc.transform([traits]).toarray()  
 
-  return traits, dictionary
+  return result, traits, dictionary
